@@ -5,12 +5,12 @@ import argparse
 
 def main():
     parser = argparse.ArgumentParser(description="""
-                        Trim down XVG files by taking every n-th row
+                        Trim down XVG files by taking every s-th row and a total number of n lines
                         """, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-s', '--spacing', dest='s', help="spacing between to lines to keep",
-                        default=0, type=int)
+                        default=1, type=int)
     parser.add_argument('-n', '--number', dest='n', help="Total number of lines",
-                        default=0, type=int)
+                        default=1000, type=int)
     parser.add_argument('-i', '--input', dest='i', help="Input file", type=str)
     parser.add_argument('-o', '--output', dest='o', help="Output file", type=str)
     args = parser.parse_args()
@@ -29,7 +29,7 @@ def main():
     for line in inputfile:
 
         # Check for total number of lines
-        if j > args.n:
+        if j > args.n or args.n == -1:
             break
 
         # Always write header
